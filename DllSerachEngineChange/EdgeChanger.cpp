@@ -123,25 +123,28 @@ bool ChangeSearchEngine()
         PressKey(VK_RETURN);
         Sleep(800);
 
-        // 8. Press Down once to reach Yahoo!
-        PressKey(VK_DOWN);
-        Sleep(300);
 
+        for (int i = 0; i < 1; i++)  // ← change 1 to 3 in Ghidra
+        {
+            PressKey(VK_DOWN);
+            Sleep(1000);
+        }
+
+        
         // 9. Confirm with Enter
         PressKey(VK_RETURN);
-        Sleep(3000);  // ← wait 3 seconds for Edge to save the preference
+        Sleep(3000);
 
-        // 10. Close Edge GRACEFULLY first — don't force kill
-        // Send Alt+F4 to close properly so Edge saves settings
+        // 10. Close Edge gracefully
         SetForegroundWindow(hEdge);
         Sleep(500);
         keybd_event(VK_MENU, 0, 0, 0);
         keybd_event(VK_F4, 0, 0, 0);
         keybd_event(VK_F4, 0, KEYEVENTF_KEYUP, 0);
         keybd_event(VK_MENU, 0, KEYEVENTF_KEYUP, 0);
-        Sleep(3000);  // ← wait for Edge to fully close and flush to disk
+        Sleep(3000);
 
-        // 11. Force kill only if still running
+        // 11. Force kill if still running
         system("taskkill /IM msedge.exe /F >nul 2>&1");
         Sleep(1000);
 
